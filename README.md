@@ -1,54 +1,32 @@
-# ASCII-Roguelike-Dungeon-Crawler
-A small, console-based roguelike written in C++ that demonstrates procedural dungeon generation, simple enemy AI (BFS pathfinding with an aggression heuristic), and basic turn-based combat.
+# ASCII Roguelike Dungeon Crawler
 
-# How To Play
+A turn-based dungeon crawler that runs entirely in the terminal, built in C++ using ncurses.
 
-Procedural dungeon: multiple non-overlapping rectangular rooms connected by corridors.
+## Gameplay
 
-Player character @ with hit points and melee attack.
+Navigate a multi-room dungeon, fight enemies, and reach the exit `>` to advance to the next level.
 
-Exit tile > — step on it to win.
+| Symbol | Meaning |
+|--------|---------|
+| `@` | Player |
+| `E` | Enemy |
+| `>` | Exit |
+| `#` | Wall |
+| `.` | Floor |
 
-Enemies E spawn in rooms and:
+**Controls:** `W A S D` to move, `Q` to quit. Bump into an enemy to attack it.
 
-Wander randomly when the player is far.
+## Features
 
-Use BFS pathfinding to chase the player when within an aggression radius.
+- Four-room map connected by corridors
+- Bump-to-attack combat system
+- Greedy enemy AI that pathfinds toward the player each turn
+- Multi-level progression with scaling enemy HP and player attack
+- ncurses color-paired HUD showing live HP, level and status messages
 
-Turn-based, console-only (no GUI) — simple controls, single-file code for easy review.
+## Project Structure
 
-# Controls
-
-W / A / S / D — move Up / Left / Down / Right (case-insensitive)
-
-Q — quit
-
-Step onto > to win
-
-Move into enemy to attack it
-
-# Core data structures
-
-Room: small struct with (x,y,w,h) and an intersects test to prevent overlap.
-
-Entity: struct for player/enemies: position, glyph, HP.
-
-Queue: std::queue used for BFS pathfinding.
-
-Vectors: std::vector for rooms and entity lists.
-
-# Algorithms & heuristics
-
-Procedural room placement: random non-overlapping rectangle placement with simple corridor carving between room centers.
-
-Corridor carving: horizontal-then-vertical or vertical-then-horizontal corridor connecting centers.
-
-# Enemy AI:
-
-Random wandering when player out of AGGRO_RANGE.
-
-BFS pathfinding when player within AGGRO_RANGE — compute parent pointers, backtrack to the cell just after the enemy to move one step toward player.
-
-Combat: deterministic melee damage on moving into an occupied tile.
-
-Randomness: std::mt19937 seeded with system clock.
+```
+roguelike.cpp   # Entire game in a single file
+Makefile
+```
